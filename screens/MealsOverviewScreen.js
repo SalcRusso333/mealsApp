@@ -1,12 +1,26 @@
-import { View, Text, StyleSheet } from "react-native";
-import { MEALS } from "../data/dummy_data";
+import { View, Text, FlatList, StyleSheet } from "react-native";
+//import { useRoute } from '@react-navigation/native'
 
-function MealsOverviewScreen(){
-    return(
-        <View style={styles.container}>
-            <Text>Meals Overview</Text>
-        </View>
-    )
+import { MEALS } from "../data/dummy_data";
+import MealItem from "../components/MealItem";
+
+function MealsOverviewScreen({ route }){
+    const catId = route.params.categoryId
+
+    const displayedMeals = MEALS.filter((mealItem) => {
+        return mealItem.categoryIds.indexOf(catId) >= 0
+    })
+
+    function renderMealItem(itemData) {
+        return(
+            <MealItem 
+                title={itemData.item.title}
+            />
+        )
+
+    }
+
+
 }
 
 export default MealsOverviewScreen
